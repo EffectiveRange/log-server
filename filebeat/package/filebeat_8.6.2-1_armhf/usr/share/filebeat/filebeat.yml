@@ -1,0 +1,8 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/effective-range/*/*.log*
+
+output.logstash:
+  hosts: [ "er-backend.local:5044" ]
