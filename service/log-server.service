@@ -1,0 +1,18 @@
+[Unit]
+Description=EffectiveRange Log Server Containers
+After=docker.service
+Requires=docker.service
+After=log-server-setup.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+TimeoutStartSec=0
+ExecStart=/usr/bin/docker compose -f /etc/log-server/docker-compose.yml up
+ExecStop=/usr/bin/docker compose -f /etc/log-server/docker-compose.yml stop
+ExecStopPost=/usr/bin/docker compose -f /etc/log-server/docker-compose.yml down
+
+[Install]
+WantedBy=multi-user.target

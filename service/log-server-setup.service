@@ -1,0 +1,18 @@
+[Unit]
+Description=EffectiveRange Log Server Setup Container
+After=docker.service
+Requires=docker.service
+Before=log-server.service
+StartLimitIntervalSec=0
+ConditionPathExists=!/var/run/log-server-setup-done.flag
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/docker compose -f /etc/log-server/docker-compose.yml up setup
+ExecStartPost=/usr/bin/touch /var/run/log-server-setup-done.flag
+ExecStop=/usr/bin/docker compose -f /etc/log-server/docker-compose.yml stop setup
+ExecStopPost=/usr/bin/docker compose -f /etc/log-server/docker-compose.yml down setup
+
+[Install]
+WantedBy=multi-user.target

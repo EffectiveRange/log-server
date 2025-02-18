@@ -1,0 +1,8 @@
+Package: filebeat
+Version: 8.6.2-1
+Section: base
+Priority: optional
+Architecture: armhf
+Depends: libc6 (>= 2.7)
+Maintainer: Your Name <your.email@example.com>
+Description: Filebeat sends log files to Logstash or directly to Elasticsearch.
